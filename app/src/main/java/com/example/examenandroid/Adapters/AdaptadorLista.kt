@@ -21,7 +21,6 @@ class AdaptadorLista(
             itemView.setOnClickListener {
                 Navigation.findNavController(it).navigate(R.id.detailsFragment)
                 viewModel.selectedElement.value = absoluteAdapterPosition
-
             }
         }
     }

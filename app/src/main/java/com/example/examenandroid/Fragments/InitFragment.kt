@@ -17,6 +17,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.realm.Realm
 import io.realm.RealmConfiguration
+import io.realm.RealmResults
 import io.realm.kotlin.where
 import kotlinx.android.synthetic.main.init_fragment.*
 import retrofit2.Retrofit
@@ -51,6 +52,16 @@ class InitFragment : Fragment() {
             Log.e("REALM NO VACIO", viewModel.listaPost.value.toString())
             recyclerRefresh()
         }
+        refrescar.setOnClickListener {
+            deleteAll()
+            refreshRequest()
+        }
+        borrar_todo.setOnClickListener {
+            deleteAll()
+            recyclerRefresh()
+        }
+
+
     }
 
     fun recyclerRefresh(){
@@ -74,14 +85,21 @@ class InitFragment : Fragment() {
                     if (it.code().toString() == "200") {
                         Log.e("REALM VACIO", viewModel.listaPost.value.toString())
                         viewModel.listaPost.value = it.body()
-                        realm!!.executeTransaction {
+                        realm?.executeTransaction {
                             it.insert(viewModel.listaPost.value as ArrayList)
                         }
-                        //Log.e("prueba", realm.where<ResponseModel>().findAll().toString())
+                        //Log.e("prueba", realm!!.where<ResponseModel>().findAll().toString())
                         recyclerRefresh()
                     } else Log.e("RESPUESTA RETROFIT", "NO VALIDA")
                 }
         }
     }
+
+
+    private fun deleteAll(){
+        realm?.executeTransaction{it.where<ResponseModel>().findAll().deleteAllFromRealm()}
+        viewModel.listaPost.value = ArrayList()
+    }
+
 
 }
