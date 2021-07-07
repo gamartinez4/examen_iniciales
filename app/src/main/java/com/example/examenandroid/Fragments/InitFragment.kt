@@ -1,6 +1,5 @@
 package com.example.examenandroid.Fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,9 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.examenandroid.Adapters.AdaptadorLista
-import com.example.examenandroid.Adapters.AdaptadorListaNOBINDING
 import com.example.examenandroid.Proxi.ApiRetrofit
 import com.example.examenandroid.R
 import com.example.examenandroid.ViewModel.ViewModelClass
