@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <data>
+        <variable
+            name="response"
+            type="com.example.examenandroid.models.ResponseModel" />
+
+        <import type="android.view.View"/>
+        <import type="android.graphics.Color"/>
+    </data>
+
+
+
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="100dp">
+    android:layout_height="100dp"
+        android:background="@{response.id&lt;20 &amp; !response.viewed?Color.BLUE:Color.WHITE}">
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="249dp"
             android:layout_height="64dp"
-            android:text="grgdrg"
+            android:text="@{response.title}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.156"
@@ -22,8 +34,9 @@
             android:id="@+id/imageView"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:elevation="1dp"
             android:background="@drawable/ic_estrella"
-
+            android:visibility="@{response.isFavourite ? View.GONE:View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

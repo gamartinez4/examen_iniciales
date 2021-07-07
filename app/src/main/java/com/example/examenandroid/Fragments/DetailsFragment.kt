@@ -26,7 +26,7 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       // Log.e("test",viewModel.prueba.value.toString())
+        Log.e("test",viewModel.selectedElement.value.toString())
     }
 
 }

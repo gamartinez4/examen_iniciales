@@ -1,5 +1,6 @@
 package com.example.examenandroid.Fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.examenandroid.Adapters.AdaptadorLista
 import com.example.examenandroid.Adapters.AdaptadorListaNOBINDING
 import com.example.examenandroid.Proxi.ApiRetrofit
@@ -49,14 +52,14 @@ class InitFragment : Fragment() {
         else{
             viewModel.listaPost.value = realm!!.where<ResponseModel>().findAll().toList() as ArrayList<ResponseModel>
             Log.e("REALM NO VACIO", viewModel.listaPost.value.toString())
-            val a = ArrayList<ResponseModel>()
-            a.add(ResponseModel())
-            a.add(ResponseModel())
-            a.add(ResponseModel())
-            a.add(ResponseModel())
-            val adapter = AdaptadorListaNOBINDING(a)
-            recycler_response.adapter = adapter
+            recyclerRefresh()
         }
+    }
+
+    fun recyclerRefresh(){
+        val linearLayoutManager = LinearLayoutManager(requireContext())
+        recycler_response.layoutManager = linearLayoutManager
+        recycler_response.adapter = AdaptadorLista(viewModel)
     }
 
 
@@ -78,9 +81,10 @@ class InitFragment : Fragment() {
                             it.insert(viewModel.listaPost.value as ArrayList)
                         }
                         //Log.e("prueba", realm.where<ResponseModel>().findAll().toString())
-                        recycler_response.adapter = AdaptadorLista(viewModel.listaPost.value!!)
+                        recyclerRefresh()
                     } else Log.e("RESPUESTA RETROFIT", "NO VALIDA")
                 }
         }
     }
+
 }
