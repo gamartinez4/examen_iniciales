@@ -31,7 +31,7 @@ class DetailsFragment : Fragment() {
 
         val binding: FragmentDetailsBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_details, container, false)
-        binding.response = post
+        binding.response = post!!
         binding.lifecycleOwner = this
         return binding.root
     }
@@ -60,6 +60,7 @@ class DetailsFragment : Fragment() {
                 post!!.isFavourite = true
                 r.insertOrUpdate(post!!)
             }
+            Navigation.findNavController(it).navigate(R.id.initFragment)
         }
     }
 

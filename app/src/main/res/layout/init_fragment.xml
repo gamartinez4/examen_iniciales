@@ -23,38 +23,41 @@
             android:elevation="50dp" />
     </ScrollView>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/refrescar"
-        android:layout_width="130dp"
-        android:layout_height="72dp"
+        style="@style/EstiloBotones"
+        android:layout_width="110dp"
+        android:layout_height="60dp"
         android:text="Refrescar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/borrar_todo"
+        style="@style/EstiloBotones"
         android:layout_width="110dp"
-        android:layout_height="72dp"
-        android:text="Borrar"
+        android:layout_height="60dp"
+        android:text="Borrar todo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.946"
+        app:layout_constraintHorizontal_bias="0.97"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollView2"
         />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/filtrar_fav"
-        android:layout_width="130dp"
-        android:layout_height="72dp"
+        style="@style/EstiloBotones"
+        android:layout_width="110dp"
+        android:layout_height="60dp"
         android:text="filtrar favoritos"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.03"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
