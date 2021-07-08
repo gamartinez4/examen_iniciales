@@ -16,6 +16,7 @@ import com.example.examenandroid.databinding.FragmentDetailsBinding
 import com.example.examenandroid.models.ResponseModel
 import io.realm.Realm
 import io.realm.RealmConfiguration
+import io.realm.kotlin.where
 import kotlinx.android.synthetic.main.fragment_details.*
 
 
@@ -49,8 +50,9 @@ class DetailsFragment : Fragment() {
         }
 
         errase_post.setOnClickListener {
-            realm?.executeTransaction{ r ->
-                post!!.deleteFromRealm()
+            realm?.executeTransaction{
+                (it.where<ResponseModel>().equalTo("id",post!!.id)).findFirst()!!
+                    .deleteFromRealm()
             }
             Navigation.findNavController(it).navigate(R.id.initFragment)
         }

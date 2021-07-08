@@ -10,25 +10,21 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.examenandroid.Adapters.AdaptadorLista
-import com.example.examenandroid.Proxi.ApiRetrofit
+import com.example.examenandroid.Proxi.RetrofitController
 import com.example.examenandroid.R
 import com.example.examenandroid.ViewModel.ViewModelClass
 import com.example.examenandroid.models.ResponseModel
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
 import io.realm.Realm
 import io.realm.RealmConfiguration
-import io.realm.RealmResults
 import io.realm.kotlin.where
 import kotlinx.android.synthetic.main.init_fragment.*
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
+import org.koin.android.ext.android.inject
 
 class InitFragment : Fragment() {
 
     private val viewModel: ViewModelClass by activityViewModels()
     private var realm: Realm? = null
+    private val retrofitController:RetrofitController by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -77,27 +73,18 @@ class InitFragment : Fragment() {
 
 
     private fun refreshRequest(){
-        val retrofit: Retrofit? = Retrofit.Builder()
-            .baseUrl("https://jsonplaceholder.typicode.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-            .build()
-        retrofit?.let {
-            it.create(ApiRetrofit::class.java).getAllPost()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
+        retrofitController.executeAPI{
                     if (it.code().toString() == "200") {
                         viewModel.listaPost.value = it.body()
-                        Log.e("REALM VACIO", viewModel.listaPost.value.toString())
                         realm?.executeTransaction {
                             it.insert(viewModel.listaPost.value as ArrayList)
+                            recyclerRefresh(viewModel.listaPost.value!!)
                         }
-                        //Log.e("prueba", realm!!.where<ResponseModel>().findAll().toString())
-                        recyclerRefresh(viewModel.listaPost.value!!)
+                        Log.e("REALM VACIO", viewModel.listaPost.value.toString())
+
                     } else Log.e("RESPUESTA RETROFIT", "NO VALIDA")
                 }
-        }
+
     }
 
 
