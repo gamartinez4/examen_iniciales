@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.Navigation
 import com.example.examenandroid.R
 import com.example.examenandroid.ViewModel.ViewModelClass
@@ -21,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_details.*
 class DetailsFragment : Fragment() {
 
     private val viewModel: ViewModelClass by activityViewModels()
-    val post : ResponseModel? by lazy { viewModel.listaPost.value!![viewModel.selectedElement.value!!] }
+    val post : ResponseModel? by lazy { viewModel.selectedElement.value }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,27 +41,24 @@ class DetailsFragment : Fragment() {
         val realm = Realm.getInstance(RealmConfiguration.Builder()
             .allowWritesOnUiThread(true)
             .build())
-
         realm.executeTransaction{r->
-            post!!.viewed = true
-            r.insertOrUpdate(post)
+            post?.let{
+                it.viewed = true
+                r.insertOrUpdate(it)
+            }
         }
-
-       // viewModel.listaPost.value!![viewModel.selectedElement.value!!].viewed = true
 
         errase_post.setOnClickListener {
             realm?.executeTransaction{ r ->
-                viewModel.listaPost.value!![viewModel.selectedElement.value!!].deleteFromRealm()
+                post!!.deleteFromRealm()
             }
-            viewModel.listaPost.value!!.removeAt(viewModel.selectedElement.value!!)
             Navigation.findNavController(it).navigate(R.id.initFragment)
         }
 
         fav.setOnClickListener {
-            val post = viewModel.listaPost.value!![viewModel.selectedElement.value!!]
             realm?.executeTransaction{ r ->
-                post.isFavourite = true
-                r.insertOrUpdate(post)
+                post!!.isFavourite = true
+                r.insertOrUpdate(post!!)
             }
         }
     }

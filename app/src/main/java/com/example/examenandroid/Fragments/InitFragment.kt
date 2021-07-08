@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.examenandroid.Adapters.AdaptadorLista
 import com.example.examenandroid.Proxi.ApiRetrofit
@@ -40,7 +41,7 @@ class InitFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        viewModel.selectedElement.value = null
         Realm.init(context)
         realm = Realm.getInstance(RealmConfiguration.Builder()
             .allowWritesOnUiThread(true)
@@ -50,7 +51,7 @@ class InitFragment : Fragment() {
         else{
             viewModel.listaPost.value = realm!!.where<ResponseModel>().findAll().toList() as ArrayList<ResponseModel>
             Log.e("REALM NO VACIO", viewModel.listaPost.value.toString())
-            recyclerRefresh()
+            recyclerRefresh(viewModel.listaPost.value!!)
         }
         refrescar.setOnClickListener {
             deleteAll()
@@ -58,16 +59,20 @@ class InitFragment : Fragment() {
         }
         borrar_todo.setOnClickListener {
             deleteAll()
-            recyclerRefresh()
+            recyclerRefresh(viewModel.listaPost.value!!)
+        }
+        filtrar_fav.setOnClickListener {
+            Navigation.findNavController(it).navigate(R.id.favourites)
+            //recyclerRefresh(viewModel.listaPost.value!!.filter{it.isFavourite!!} as ArrayList<ResponseModel>)
         }
 
 
     }
 
-    fun recyclerRefresh(){
+    fun recyclerRefresh(listPost:ArrayList<ResponseModel>){
         val linearLayoutManager = LinearLayoutManager(requireContext())
         recycler_response.layoutManager = linearLayoutManager
-        recycler_response.adapter = AdaptadorLista(viewModel)
+        recycler_response.adapter = AdaptadorLista(viewModel,listPost)
     }
 
 
@@ -83,13 +88,13 @@ class InitFragment : Fragment() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     if (it.code().toString() == "200") {
-                        Log.e("REALM VACIO", viewModel.listaPost.value.toString())
                         viewModel.listaPost.value = it.body()
+                        Log.e("REALM VACIO", viewModel.listaPost.value.toString())
                         realm?.executeTransaction {
                             it.insert(viewModel.listaPost.value as ArrayList)
                         }
                         //Log.e("prueba", realm!!.where<ResponseModel>().findAll().toString())
-                        recyclerRefresh()
+                        recyclerRefresh(viewModel.listaPost.value!!)
                     } else Log.e("RESPUESTA RETROFIT", "NO VALIDA")
                 }
         }

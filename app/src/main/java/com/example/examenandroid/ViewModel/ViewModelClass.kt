@@ -7,5 +7,5 @@ import com.example.examenandroid.models.ResponseModel
 class ViewModelClass : ViewModel(){
 
     val listaPost = MutableLiveData<ArrayList<ResponseModel>>()
-    val selectedElement = MutableLiveData<Int>()
+    val selectedElement = MutableLiveData<ResponseModel?>()
 }

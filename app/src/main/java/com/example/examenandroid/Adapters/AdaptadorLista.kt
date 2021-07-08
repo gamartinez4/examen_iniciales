@@ -11,7 +11,8 @@ import com.example.examenandroid.databinding.ItemLayoutBinding
 import com.example.examenandroid.models.ResponseModel
 
 class AdaptadorLista(
-    private val viewModel:ViewModelClass
+    private var viewModel: ViewModelClass,
+    private val listpost:ArrayList<ResponseModel>
     ) :
 
     RecyclerView.Adapter<AdaptadorLista.ViewHolderList>() {
@@ -19,8 +20,9 @@ class AdaptadorLista(
     inner class ViewHolderList(val binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             itemView.setOnClickListener {
+
                 Navigation.findNavController(it).navigate(R.id.detailsFragment)
-                viewModel.selectedElement.value = absoluteAdapterPosition
+                viewModel.selectedElement.value = binding.response
             }
         }
     }
@@ -31,10 +33,10 @@ class AdaptadorLista(
 
 
     override fun onBindViewHolder(holder: ViewHolderList, position: Int) {
-        holder.binding.response = viewModel.listaPost.value!![position]
+        holder.binding.response = listpost[position]
     }
 
-    override fun getItemCount() = viewModel.listaPost.value!!.size
+    override fun getItemCount() = listpost.size
 
 }
 
