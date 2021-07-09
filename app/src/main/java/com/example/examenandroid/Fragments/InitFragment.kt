@@ -66,8 +66,7 @@ class InitFragment : Fragment() {
     }
 
     fun recyclerRefresh(listPost:ArrayList<ResponseModel>){
-        val linearLayoutManager = LinearLayoutManager(requireContext())
-        recycler_response.layoutManager = linearLayoutManager
+        recycler_response.layoutManager = LinearLayoutManager(requireContext())
         recycler_response.adapter = AdaptadorLista(viewModel,listPost)
     }
 
