@@ -1,0 +1,11 @@
+Este ejercicio esta hecho por gabriel martinez y esta para fines meramente ilustrativos.
+La aplicación en cuestion tiene 2 activities (1 para la inicializar la inyeccion de dependencias
+con la libreria externa koin el otro como MainActivity) y 3 fragmentos (El inicio, el fragmento para mostrar detalles
+y el fragmento de favoritos). Se utilizaron fragmentos como interfaces dado que la navegacion fue
+hecha con el componente de navegación de jetpack. Se utilizó retrofit como medio para
+realizar consultas a servidores y con javaRx facilitamos este tipo de tareas al hacer reactiva
+la aplicación al momento de obtener cambios en la respuesta y el realm para la persistencia de datos.
+Asi que la aplicacion primero verifica la existencia de datos de la base de datos local y en el caso de
+no haber, consulta mediante el retrofit la informacion del servidor web. Tambien se utilizó una
+libreria externa llamada data-binding que al igual que RXJava permite hacer la aplicación mas reactiva
+pero a travez de cambios en la propia interfaz
