@@ -24,6 +24,7 @@ class DialogPersonalized() {
                 "OK"
             ) { _: DialogInterface, i: Int ->
                 funcion()
+                if( funcion != {})funcion = {}
             }.show()
     }
 }
