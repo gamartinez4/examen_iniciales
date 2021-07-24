@@ -43,6 +43,7 @@ class InitFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.selectedElement.value = null
         Realm.init(context)
+        dialog.context = context
         realm = Realm.getInstance(RealmConfiguration.Builder()
             .allowWritesOnUiThread(true)
             .build())
@@ -65,9 +66,6 @@ class InitFragment : Fragment() {
             Navigation.findNavController(it).navigate(R.id.favourites)
             //recyclerRefresh(viewModel.listaPost.value!!.filter{it.isFavourite!!} as ArrayList<ResponseModel>)
         }
-
-        Log.e("fesf", resources.getString(R.string.link_api))
-
     }
 
     fun recyclerRefresh(listPost:ArrayList<ResponseModel>){
@@ -77,7 +75,7 @@ class InitFragment : Fragment() {
 
 
     private fun refreshRequest(){
-        retrofitController.executeAPI ({
+        retrofitController.executeAPI ("posts",{
             if (it.code().toString() == "200") {
                 viewModel.listaPost.value = it.body()
                 realm?.executeTransaction {
@@ -85,10 +83,12 @@ class InitFragment : Fragment() {
                     recyclerRefresh(viewModel.listaPost.value!!)
                 }
                 Log.e("REALM VACIO", viewModel.listaPost.value.toString())
-            } else Log.e("RESPUESTA RETROFIT", "NO VALIDA")
+            } else {
+                dialog.contenido = "Respuesta del servidor invalida."
+                dialog.showDialog()
+            }
         },{
-            dialog.contenido="La información no pudo ser recibida satisfactoriamente, revise su conexion a internet"
-            dialog.context = context
+            dialog.contenido = "La información no pudo ser recibida satisfactoriamente, revise su conexion a internet"
             dialog.showDialog()
 
         })

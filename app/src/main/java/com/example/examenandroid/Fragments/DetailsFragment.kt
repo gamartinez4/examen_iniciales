@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.Navigation
+import com.example.examenandroid.DialogPersonalized
 import com.example.examenandroid.R
 import com.example.examenandroid.ViewModel.ViewModelClass
 import com.example.examenandroid.databinding.FragmentDetailsBinding
@@ -18,6 +19,7 @@ import io.realm.Realm
 import io.realm.RealmConfiguration
 import io.realm.kotlin.where
 import kotlinx.android.synthetic.main.fragment_details.*
+import org.koin.android.ext.android.inject
 
 
 class DetailsFragment : Fragment() {

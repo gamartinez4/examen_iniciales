@@ -15,9 +15,8 @@ import kotlin.collections.ArrayList
 
 class RetrofitController (val retrofitStrings: RetrofitStrings){
 
-    private val dialog = DialogPersonalized()
-
     fun executeAPI(
+        stringOfPath: String,
         goodFunction: (response:Response<ArrayList<ResponseModel>>) -> Any,
         badFunction: () -> Any
     ): @NonNull Disposable? {
@@ -25,7 +24,7 @@ class RetrofitController (val retrofitStrings: RetrofitStrings){
             .baseUrl(retrofitStrings.webApiURL())
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-            .build().create(ApiRetrofit::class.java).getAllPost()
+            .build().create(ApiRetrofit::class.java).getAllPost(stringOfPath)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

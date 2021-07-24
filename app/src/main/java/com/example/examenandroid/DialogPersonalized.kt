@@ -13,6 +13,7 @@ class DialogPersonalized() {
 
     var contenido:String = ""
     var context: Context? =  null
+    var funcion:()->Unit = {}
 
 
     fun showDialog(): Dialog {
@@ -21,6 +22,8 @@ class DialogPersonalized() {
             .setMessage(contenido)
             .setPositiveButton(
                 "OK"
-            ) { _: DialogInterface, i: Int -> }.show()
+            ) { _: DialogInterface, i: Int ->
+                funcion()
+            }.show()
     }
 }
