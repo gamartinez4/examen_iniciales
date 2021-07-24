@@ -6,10 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.examenandroid.Adapters.AdaptadorLista
+import com.example.examenandroid.DialogPersonalized
 import com.example.examenandroid.Proxi.RetrofitController
 import com.example.examenandroid.R
 import com.example.examenandroid.ViewModel.ViewModelClass
@@ -25,6 +28,7 @@ class InitFragment : Fragment() {
     private val viewModel: ViewModelClass by activityViewModels()
     private var realm: Realm? = null
     private val retrofitController:RetrofitController by inject()
+    private val dialog:DialogPersonalized by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,6 +66,7 @@ class InitFragment : Fragment() {
             //recyclerRefresh(viewModel.listaPost.value!!.filter{it.isFavourite!!} as ArrayList<ResponseModel>)
         }
 
+        Log.e("fesf", resources.getString(R.string.link_api))
 
     }
 
@@ -72,18 +77,21 @@ class InitFragment : Fragment() {
 
 
     private fun refreshRequest(){
-        retrofitController.executeAPI{
-                    if (it.code().toString() == "200") {
-                        viewModel.listaPost.value = it.body()
-                        realm?.executeTransaction {
-                            it.insert(viewModel.listaPost.value as ArrayList)
-                            recyclerRefresh(viewModel.listaPost.value!!)
-                        }
-                        Log.e("REALM VACIO", viewModel.listaPost.value.toString())
-
-                    } else Log.e("RESPUESTA RETROFIT", "NO VALIDA")
+        retrofitController.executeAPI ({
+            if (it.code().toString() == "200") {
+                viewModel.listaPost.value = it.body()
+                realm?.executeTransaction {
+                    it.insert(viewModel.listaPost.value as ArrayList)
+                    recyclerRefresh(viewModel.listaPost.value!!)
                 }
+                Log.e("REALM VACIO", viewModel.listaPost.value.toString())
+            } else Log.e("RESPUESTA RETROFIT", "NO VALIDA")
+        },{
+            dialog.contenido="La información no pudo ser recibida satisfactoriamente, revise su conexion a internet"
+            dialog.context = context
+            dialog.showDialog()
 
+        })
     }
 
 

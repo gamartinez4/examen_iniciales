@@ -7,4 +7,5 @@ import org.koin.dsl.module
 val modKoin = module{
     single { RetrofitStrings() }
     single { RetrofitController(get()) }
+    single {DialogPersonalized()}
 }

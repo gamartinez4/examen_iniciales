@@ -1,5 +1,6 @@
 package com.example.examenandroid.Proxi
 
+import com.example.examenandroid.DialogPersonalized
 import com.example.examenandroid.models.ResponseModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.annotations.NonNull
@@ -14,7 +15,12 @@ import kotlin.collections.ArrayList
 
 class RetrofitController (val retrofitStrings: RetrofitStrings){
 
-    fun executeAPI(function: (response:Response<ArrayList<ResponseModel>>) -> Any): @NonNull Disposable? {
+    private val dialog = DialogPersonalized()
+
+    fun executeAPI(
+        goodFunction: (response:Response<ArrayList<ResponseModel>>) -> Any,
+        badFunction: () -> Any
+    ): @NonNull Disposable? {
        return Retrofit.Builder()
             .baseUrl(retrofitStrings.webApiURL())
             .addConverterFactory(GsonConverterFactory.create())
@@ -22,9 +28,14 @@ class RetrofitController (val retrofitStrings: RetrofitStrings){
             .build().create(ApiRetrofit::class.java).getAllPost()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe{
-                    function(it)
-                }
+                .subscribe(
+                    {
+                        goodFunction(it)
+                    },
+                    {
+                        badFunction()
+                    }
+                )
     }
 
 }

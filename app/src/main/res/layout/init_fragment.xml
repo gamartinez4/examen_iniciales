@@ -52,7 +52,7 @@
         style="@style/EstiloBotones"
         android:layout_width="110dp"
         android:layout_height="60dp"
-        android:text="filtrar favoritos"
+        android:text="Filtrar favoritos"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.03"
