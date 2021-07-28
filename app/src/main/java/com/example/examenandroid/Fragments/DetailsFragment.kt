@@ -61,7 +61,7 @@ class DetailsFragment : Fragment() {
 
         fav.setOnClickListener {
             realm?.executeTransaction{ r ->
-                post!!.isFavourite = true
+                post!!.isFavourite = !post!!.isFavourite!!
                 r.insertOrUpdate(post!!)
             }
             Navigation.findNavController(it).navigate(R.id.initFragment)

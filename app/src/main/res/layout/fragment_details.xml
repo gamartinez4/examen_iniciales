@@ -56,7 +56,7 @@
             android:layout_width="163dp"
             android:layout_height="60dp"
             android:layout_marginBottom="40dp"
-            android:text="Añadir a favoritos"
+            android:text="@{response.isFavourite?`Quitar de favoritos`:`Agregar a favoritos`}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/errase_post"
             app:layout_constraintHorizontal_bias="0.0"
