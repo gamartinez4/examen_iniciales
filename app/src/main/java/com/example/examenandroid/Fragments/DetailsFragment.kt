@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.Navigation
+import com.bumptech.glide.Glide
 import com.example.examenandroid.DialogPersonalized
 import com.example.examenandroid.R
 import com.example.examenandroid.ViewModel.ViewModelClass
@@ -44,12 +45,6 @@ class DetailsFragment : Fragment() {
         val realm = Realm.getInstance(RealmConfiguration.Builder()
             .allowWritesOnUiThread(true)
             .build())
-        realm.executeTransaction{r->
-            post?.let{
-                it.viewed = true
-                r.insertOrUpdate(it)
-            }
-        }
 
         errase_post.setOnClickListener {
             realm?.executeTransaction{
@@ -61,11 +56,12 @@ class DetailsFragment : Fragment() {
 
         fav.setOnClickListener {
             realm?.executeTransaction{ r ->
-                post!!.isFavourite = !post!!.isFavourite!!
+                post!!.isFavourite = !post!!.isFavourite
                 r.insertOrUpdate(post!!)
             }
             Navigation.findNavController(it).navigate(R.id.initFragment)
         }
+        Glide.with(this).load(post!!.url).into(nasaImage)
     }
 
 

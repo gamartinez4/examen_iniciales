@@ -17,49 +17,52 @@
 
         <TextView
             android:id="@+id/info"
-            android:layout_width="279dp"
-            android:layout_height="304dp"
-            android:layout_marginTop="28dp"
+            android:layout_width="273dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="@{response.title}"
-            android:textSize="35dp"
+            android:textSize="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/details"
-            android:layout_width="270dp"
-            android:layout_height="87dp"
-            android:layout_marginTop="4dp"
-            android:text="@{`id: `+response.id+`\n`+`userId: `+response.userId}"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="@+id/info"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/info"
-            app:layout_constraintTop_toBottomOf="@+id/info" />
+            app:layout_constraintTop_toBottomOf="@+id/nasaImage"
+            app:layout_constraintVertical_bias="0.135" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/errase_post"
             style="@style/EstiloBotones"
-            android:layout_width="163dp"
+            android:layout_width="110dp"
             android:layout_height="60dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="104dp"
             android:text="Borrar post"
-            app:layout_constraintBottom_toTopOf="@+id/fav"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.854"
+            app:layout_constraintHorizontal_bias="0.883"
             app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/fav"
             style="@style/EstiloBotones"
-            android:layout_width="163dp"
+            android:layout_width="110dp"
             android:layout_height="60dp"
-            android:layout_marginBottom="40dp"
-            android:text="@{response.isFavourite?`Quitar de favoritos`:`Agregar a favoritos`}"
+            android:layout_marginBottom="104dp"
+            android:text="@{response.favourite?`Quitar de favoritos`:`Agregar a favoritos`}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/errase_post"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/errase_post" />
+            app:layout_constraintHorizontal_bias="0.171"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/nasaImage"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:elevation="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.161" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -7,9 +7,7 @@ import io.realm.annotations.RealmClass
 @RealmClass
 open class ResponseModel:RealmObject(){
     @PrimaryKey var id:Int? = null
-    var userId:Int? = null
     var title:String? = null
-    var completed:Boolean? = null
-    var isFavourite:Boolean? = false
-    var viewed:Boolean = false
+    var url:String? = null
+    var isFavourite:Boolean = false
 }

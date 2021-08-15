@@ -34,8 +34,11 @@ class Favorites : Fragment() {
         filtrar_fav.visibility = View.GONE
         borrar_todo.visibility = View.GONE
         refrescar.visibility = View.GONE
-        val lista = viewModel.listaPost.value?.let{
-            it.filter{it.isFavourite!!}}
+        search.visibility = View.GONE
+        scrollView2.layoutParams.height =  ViewGroup.LayoutParams.MATCH_PARENT
+        val lista = viewModel.listaPost?.let{
+            it.filter{it.isFavourite!!}
+        }
         if(lista?.size==0 || lista==null){
             dialog.funcion = { Navigation.findNavController(filtrar_fav).navigate(R.id.initFragment) }
             dialog.contenido = "No hay elementos en favoritos, presione OK para volver"
@@ -47,6 +50,6 @@ class Favorites : Fragment() {
     private fun recyclerRefresh(listPost:ArrayList<ResponseModel>){
         val linearLayoutManager = LinearLayoutManager(requireContext())
         recycler_response.layoutManager = linearLayoutManager
-        recycler_response.adapter = AdaptadorLista(viewModel,listPost)
+        recycler_response.adapter = AdaptadorLista(viewModel,listPost,this)
     }
 }
