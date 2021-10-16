@@ -30,10 +30,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed(){
-        when(fragmentId){
-            R.id.detailsFragment,R.id.favourites->
-                Navigation.findNavController(fragment).navigate(R.id.initFragment)
-        }
+       // when(fragmentId){
+         //   R.id.detailsFragment,R.id.favourites->
+           //     Navigation.findNavController(fragment).navigate(R.id.initFragment)
+        //}
     }
 
 

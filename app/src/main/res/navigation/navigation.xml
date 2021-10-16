@@ -14,9 +14,4 @@
         android:label="Details"
         android:name="com.example.examenandroid.Fragments.DetailsFragment"
         tools:layout="@layout/fragment_details" />
-    <fragment
-        android:id="@+id/favourites"
-        android:label="Favourites"
-        android:name="com.example.examenandroid.Fragments.Favorites"
-        tools:layout="@layout/fragment_favorites" />
 </navigation>

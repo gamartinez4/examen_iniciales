@@ -1,68 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-<data>
-    <variable
-        name="response"
-        type="com.example.examenandroid.models.ResponseModel" />
-    <import type="android.view.View"/>
-</data>
+    <data>
+        <import type="android.view.View"/>
+    </data>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <!-- TODO: Update blank fragment layout -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_response"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
 
-
-        <TextView
-            android:id="@+id/info"
-            android:layout_width="273dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@{response.title}"
-            android:textSize="25dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nasaImage"
-            app:layout_constraintVertical_bias="0.135" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/errase_post"
-            style="@style/EstiloBotones"
-            android:layout_width="110dp"
-            android:layout_height="60dp"
-            android:layout_marginBottom="104dp"
-            android:text="Borrar post"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.883"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/fav"
-            style="@style/EstiloBotones"
-            android:layout_width="110dp"
-            android:layout_height="60dp"
-            android:layout_marginBottom="104dp"
-            android:text="@{response.favourite?`Quitar de favoritos`:`Agregar a favoritos`}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/errase_post"
-            app:layout_constraintHorizontal_bias="0.171"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/nasaImage"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:elevation="1dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.161" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

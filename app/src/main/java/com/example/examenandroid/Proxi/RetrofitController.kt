@@ -17,8 +17,7 @@ import kotlin.collections.ArrayList
 class RetrofitController (val retrofitStrings: RetrofitStrings){
 
     fun executeAPI(
-        stringOfPath: String,
-        stringOfQuery: String,
+        url: String,
         goodFunction: (response:Response<String>) -> Any,
         badFunction: () -> Any
     ): @NonNull Disposable? {
@@ -26,7 +25,7 @@ class RetrofitController (val retrofitStrings: RetrofitStrings){
             .baseUrl(retrofitStrings.webApiURL())
             .addConverterFactory(ScalarsConverterFactory.create())
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-            .build().create(ApiRetrofit::class.java).getAllPost(stringOfPath,stringOfQuery)
+            .build().create(ApiRetrofit::class.java).getAllPost(url)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

@@ -1,11 +1,15 @@
-package com.example.examenandroid.ViewModel
+package com.example.examenandroid.viewModel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.examenandroid.models.ResponseModel
 
 class ViewModelClass : ViewModel(){
 
-    var listaPost = ArrayList<ResponseModel>()
-    val selectedElement = MutableLiveData<ResponseModel?>()
+    var search = MutableLiveData("")
+
+   fun fieldTextChanged(charSequence: CharSequence, idField: Int){
+        search.value = charSequence.toString()
+       Log.e("prueba",charSequence.toString())
+    }
 }
